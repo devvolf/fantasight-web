@@ -1,0 +1,9 @@
+<div class="container" [ngSwitch]="type">
+  <button *ngSwitchCase="'primary'" mat-raised-button color="primary">
+    {{ text }}
+  </button>
+  <button *ngSwitchCase="'secondary'" class="secondary" mat-stroked-button color="primary">
+    {{ text }}
+  </button>
+  <button *ngSwitchCase="'warn'" class="warn" mat-stroked-button color="warn">{{ text }}</button>
+</div>
