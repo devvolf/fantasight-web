@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="header">
+    <p class="header-text">Add watchable</p>
+  </div>
+  <div>
+    <form class="form" [formGroup]="form">
+      <div class="form-left">
+        <div class="form-left-top">
+          <mat-form-field class="title-input" appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput />
+          </mat-form-field>
+          <mat-form-field class="year-input" appearance="outline">
+            <mat-label>Year</mat-label>
+            <input matInput />
+          </mat-form-field>
+        </div>
+        <div class="form-left-bottom">
+          <mat-form-field class="description-input" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-right">
+        <div class="icon-influx">
+          <div class="icon-container">
+            <button mat-button><mat-icon class="edit-icon">edit</mat-icon></button>
+          </div>
+          <mat-form-field class="image-input" appearance="outline">
+            <input matInput />
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+.container {
+  padding: 20px 20px;
+
+  .header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 16px 0px;
+
+    .header-text {
+      font-size: 24px;
+      margin: 0px;
+    }
+
+    .header-input {
+      width: 400px;
+    }
+  }
+
+  .form {
+    display: flex;
+
+    .form-left {
+      margin-right: 24px;
+
+      .form-left-top {
+        .title-input {
+          width: 400px;
+          margin-right: 24px;
+        }
+
+        .year-input {
+          width: 200px;
+        }
+      }
+
+      .form-left-bottom {
+        .description-input {
+          width: 100%;
+
+          textarea {
+            height: 150px;
+          }
+        }
+      }
+    }
+
+    .form-right {
+      .icon-influx {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // background-color: pink;
+
+        .icon-container {
+          position: absolute;
+          width: 200px;
+          height: 200px;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .image-input {
+          width: 500px;
+          cursor: pointer;
+
+          ::ng-deep .mat-form-field-wrapper {
+            margin: 0px;
+            padding: 0px;
+          }
+
+          input {
+            visibility: hidden;
+            height: 400px;
+          }
+        }
+      }
+    }
+  }
+}
