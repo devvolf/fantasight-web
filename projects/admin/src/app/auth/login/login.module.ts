@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './login.component';
-import { StoreModule } from '@ngrx/store';
+import { LoaderModule } from '../../shared/components/loader/loader.module';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -15,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    LoaderModule,
   ],
 })
 export class LoginModule {}

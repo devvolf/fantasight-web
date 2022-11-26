@@ -9,8 +9,11 @@
 
 .toolbar {
   background-color: #263238;
+  display: flex;
+  justify-content: space-between;
+  color: white;
 
   .title {
-    color: white
+    color: white;
   }
 }

@@ -3,7 +3,7 @@ export interface AuthRequest {
   password: string;
 }
 
-export interface AuthResponse {
+export interface AuthData {
   accessToken: string;
   refreshToken: string;
 }

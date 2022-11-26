@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { login } from '../state/auth.actions';
+import { Observable } from 'rxjs';
+import { internalLogin, login } from '../state/auth.actions';
 import { AuthState } from '../state/auth.reducers';
+import { isProcessing } from '../state/auth.selectors';
 
-const USERNAME_MIN_LENGTH = 8;
+const USERNAME_MIN_LENGTH = 6;
 
 @Component({
   selector: 'app-login',
@@ -37,14 +39,24 @@ export class LoginComponent implements OnInit {
     return !!control?.dirty && !!control.hasError('required');
   }
 
-  ngOnInit(): void {}
+  get isAuthProcessing(): Observable<boolean> {
+    return this.authStore.select(isProcessing);
+  }
+
+  ngOnInit(): void {
+    this.authStore.dispatch(internalLogin());
+  }
 
   onSubmit(): void {
-    this.authStore.dispatch(
-      login({ authRequest: { username: 'Olafix', password: 'asdfasdf' } })
-    );
     if (this.form.invalid) {
       return;
     }
+
+    const authRequest = {
+      username: this.form.get('username')?.value!,
+      password: this.form.get('password')?.value!,
+    };
+
+    this.authStore.dispatch(login({ authRequest }));
   }
 }
