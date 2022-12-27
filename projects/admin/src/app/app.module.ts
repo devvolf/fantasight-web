@@ -10,6 +10,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { authReducer } from './auth/state/auth.reducers';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +27,7 @@ import { authReducer } from './auth/state/auth.reducers';
     }),
     EffectsModule.forRoot([]),
     HttpClientModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

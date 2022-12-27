@@ -1,16 +1,23 @@
 <div class="container">
   <mat-nav-list>
-    <mat-list-item>
-      <mat-icon class="option-text" mat-list-icon>movie</mat-icon>
-      <span class="option-text" mat-line *ngIf="true">Watchables</span>
-    </mat-list-item>
-    <mat-list-item>
-      <mat-icon class="option-text" mat-list-icon>theater_comedy</mat-icon>
-      <span class="option-text" mat-line *ngIf="true">Genres</span>
-    </mat-list-item>
-    <mat-list-item>
-      <mat-icon class="option-text" mat-list-icon>mood</mat-icon>
-      <span class="option-text" mat-line *ngIf="true">Characteristics</span>
-    </mat-list-item>
+    <a href="/main/watchables"
+      ><mat-list-item>
+        <mat-icon class="option-text" mat-list-icon>movie</mat-icon>
+        <span class="option-text" mat-line>Watchables</span>
+      </mat-list-item>
+    </a>
+
+    <a href="/main/genres">
+      <mat-list-item>
+        <mat-icon class="option-text" mat-list-icon>theater_comedy</mat-icon>
+        <span class="option-text" mat-line>Genres</span>
+      </mat-list-item></a
+    >
+    <a href="/main/characteristics">
+      <mat-list-item>
+        <mat-icon class="option-text" mat-list-icon>mood</mat-icon>
+        <span class="option-text" mat-line>Characteristics</span>
+      </mat-list-item>
+    </a>
   </mat-nav-list>
 </div>

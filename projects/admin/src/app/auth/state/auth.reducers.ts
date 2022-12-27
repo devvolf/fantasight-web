@@ -15,17 +15,15 @@ export interface AuthState {
   isProcessing: boolean;
 }
 
-export const initialState = (): AuthState => {
-  return {
-    isLoggedIn: false,
-    accessToken: null,
-    refreshToken: null,
-    isProcessing: true,
-  };
+export const initialState = {
+  isLoggedIn: false,
+  accessToken: null,
+  refreshToken: null,
+  isProcessing: true,
 };
 
-export const authReducer = createReducer(
-  initialState(),
+export const authReducer = createReducer<AuthState>(
+  initialState,
   on(internalLogin, (state) => ({
     ...state,
     isLoggedIn: false,

@@ -8,16 +8,21 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: '',
-        redirectTo: '/main/watchables',
-        pathMatch: 'full',
-      },
-      {
         path: 'watchables',
         loadChildren: () =>
           import('./watchables/watchables.module').then(
             (m) => m.WatchablesModule
           ),
+      },
+      {
+        path: 'genres',
+        loadChildren: () =>
+          import('./genres/genres.module').then((m) => m.GenresModule),
+      },
+      {
+        path: '',
+        redirectTo: '/main',
+        pathMatch: 'full',
       },
     ],
   },
