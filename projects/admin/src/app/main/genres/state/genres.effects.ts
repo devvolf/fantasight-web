@@ -5,7 +5,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
 import { GenresService } from '../../../core/services/genres/genres.service';
 import { SnackbarService } from '../../../core/services/snackbar/snackbar.service';
-import { Genre } from '../../../shared/models/genre.model';
+import { Genre } from '../../../shared/models/genre/genre.model';
 import * as GenresActions from './genres.actions';
 
 @Injectable()
@@ -14,7 +14,6 @@ export class GenresEffects {
     this.actions$.pipe(
       ofType(GenresActions.getAllGenres),
       exhaustMap((action) => {
-        console.log(action);
         const { searchText } = action;
         return this.genresService.getAll(searchText).pipe(
           map((genres: Genre[]) => {
@@ -64,7 +63,7 @@ export class GenresEffects {
         const { payload } = action;
         return this.genresService.edit(payload).pipe(
           map(() => {
-            return GenresActions.addGenreSuccess();
+            return GenresActions.editGenreSuccess();
           }),
           catchError((error: HttpErrorResponse) =>
             of(GenresActions.editGenreFailure({ error }))

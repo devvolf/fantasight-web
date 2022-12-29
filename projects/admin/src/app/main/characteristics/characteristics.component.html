@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="header">
+    <p class="header-text">Characteristics</p>
+    <input
+      matInput
+      class="header-input"
+      [ngModel]="searchText"
+      (ngModelChange)="onSearchTextChange($event)"
+    />
+    <button mat-button (click)="onAdd()">Add</button>
+  </div>
+  <div class="list">
+    <table mat-table [dataSource]="characteristics$" class="table mat-elevation-z8">
+      <ng-container matColumnDef="id">
+        <th mat-header-cell class="id-column" *matHeaderCellDef>Id</th>
+        <td mat-cell class="id-column" *matCellDef="let element">
+          {{ element._id }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell class="name-column" *matHeaderCellDef>Name</th>
+        <td mat-cell class="name-column" *matCellDef="let element">
+          {{ element.name }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell class="description-column" *matHeaderCellDef>
+          Description
+        </th>
+        <td mat-cell class="description-column" *matCellDef="let element">
+          {{ element.description }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell class="date-column" *matHeaderCellDef>Created</th>
+        <td mat-cell class="date-column" *matCellDef="let element">
+          {{ element.createdAt }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="updatedAt">
+        <th mat-header-cell class="date-column" *matHeaderCellDef>Updated</th>
+        <td mat-cell class="date-column" *matCellDef="let element">
+          {{ element.updatedAt }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell class="date-column" *matHeaderCellDef>Actions</th>
+        <td mat-cell class="date-column" *matCellDef="let element">
+          <div>
+            <button mat-icon-button (click)="onEdit(element._id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onDelete(element._id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

@@ -1,20 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'projects/admin/src/environments/environment';
-import { Observable, tap } from 'rxjs';
-import { AddGenre } from '../../../shared/models/genre/add-genre.model';
-import { EditGenre } from '../../../shared/models/genre/edit-genre.model';
+import { Observable } from 'rxjs';
+import { AddCharacteristic } from '../../../shared/models/characteristic/add-characteristic.model';
+import { EditCharacteristic } from '../../../shared/models/characteristic/edit-characteristic.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class GenresService {
-  private genresUrl = `${environment.API_URL}/watchables/genres`;
+export class CharacteristicsService {
+  private characteristicsUrl = `${environment.API_URL}/watchables/characteristics`;
 
   constructor(private httpClient: HttpClient) {}
 
   public getAll(searchText?: string): Observable<any> {
-    const url = `${this.genresUrl}`;
+    const url = `${this.characteristicsUrl}`;
 
     if (searchText) {
       const searchTextUrl = `${url}?searchText=${searchText}`;
@@ -23,19 +23,19 @@ export class GenresService {
     return this.httpClient.get(url);
   }
 
-  public add(payload: AddGenre): Observable<any> {
-    const url = `${this.genresUrl}`;
+  public add(payload: AddCharacteristic): Observable<any> {
+    const url = `${this.characteristicsUrl}`;
     return this.httpClient.post(url, payload);
   }
 
-  public edit(payload: EditGenre): Observable<any> {
+  public edit(payload: EditCharacteristic): Observable<any> {
     const { id } = payload;
-    const url = `${this.genresUrl}/${id}`;
+    const url = `${this.characteristicsUrl}/${id}`;
     return this.httpClient.put(url, payload);
   }
 
   public delete(id: string): Observable<any> {
-    const url = `${this.genresUrl}/${id}`;
+    const url = `${this.characteristicsUrl}/${id}`;
     return this.httpClient.delete(url);
   }
 }

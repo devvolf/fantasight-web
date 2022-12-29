@@ -9,8 +9,7 @@ import {
   tap,
   timer,
 } from 'rxjs';
-import { SnackbarService } from '../../core/services/snackbar/snackbar.service';
-import { Genre } from '../../shared/models/genre.model';
+import { Genre } from '../../shared/models/genre/genre.model';
 import { deleteGenre, getAllGenres } from './state/genres.actions';
 import { GenresState } from './state/genres.reducers';
 import { genres } from './state/genres.selectors';

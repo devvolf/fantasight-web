@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
 import { Features } from '../../../shared/consts/features.consts';
-import { AddGenre } from '../../../shared/models/add-genre.model';
-import { EditGenre } from '../../../shared/models/edit-genre.model';
-import { Genre } from '../../../shared/models/genre.model';
+import { AddGenre } from '../../../shared/models/genre/add-genre.model';
+import { EditGenre } from '../../../shared/models/genre/edit-genre.model';
+import { Genre } from '../../../shared/models/genre/genre.model';
 
 export const GenresActions = {
   GetAllGenres: `[${Features.Genres}] Get All Genres`,

@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { isProcessing } from '../../../auth/state/auth.selectors';
-import { Genre } from '../../../shared/models/genre.model';
+import { Genre } from '../../../shared/models/genre/genre.model';
 import {
   addGenre,
   addGenreFailure,

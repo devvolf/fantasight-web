@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AddGenre } from '../../../shared/models/add-genre.model';
+import { AddGenre } from '../../../shared/models/genre/add-genre.model';
 import { addGenre } from '../state/genres.actions';
 import { GenresState } from '../state/genres.reducers';
 

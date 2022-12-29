@@ -20,6 +20,11 @@ const routes: Routes = [
           import('./genres/genres.module').then((m) => m.GenresModule),
       },
       {
+        path: 'characteristics',
+        loadChildren: () =>
+          import('./characteristics/characteristics.module').then((m) => m.CharacteristicsModule),
+      },
+      {
         path: '',
         redirectTo: '/main',
         pathMatch: 'full',

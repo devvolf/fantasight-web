@@ -1,0 +1,45 @@
+.container {
+  padding: 20px 20px;
+
+  .header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 16px 0px;
+
+    .header-text {
+      font-size: 24px;
+      margin: 0px;
+    }
+
+    .header-input {
+      width: 400px;
+    }
+  }
+
+  .form {
+    display: flex;
+
+    .form-left {
+      .form-left-top {
+        .title-input {
+          width: 400px;
+        }
+
+        .year-input {
+          width: 200px;
+        }
+      }
+
+      .form-left-bottom {
+        .description-input {
+          width: 100%;
+
+          textarea {
+            height: 150px;
+          }
+        }
+      }
+    }
+  }
+}
