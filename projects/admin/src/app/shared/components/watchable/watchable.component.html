@@ -1,21 +1,19 @@
 <mat-card class="card">
-  <img
-    mat-card-image
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-    alt="Photo of a Shiba Inu"
-  />
+  <div class="image-container">
+    <img class="image" src="{{ data?.posterUrl }}" />
+  </div>
   <mat-card-content>
     <div class="info">
       <p class="info-header">Title:</p>
-      <p>Proper title</p>
+      <p>{{ data?.title }}</p>
     </div>
     <div class="info">
       <p class="info-header">Year:</p>
-      <p>2015</p>
+      <p>{{ data?.year }}</p>
     </div>
     <div class="info">
       <p class="info-header">Type:</p>
-      <p>Film</p>
+      <p>{{ data?.type }}</p>
     </div>
   </mat-card-content>
   <mat-card-actions>

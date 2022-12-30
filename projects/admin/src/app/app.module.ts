@@ -8,9 +8,15 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { environment } from '../environments/environment';
 import { authReducer } from './auth/state/auth.reducers';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { genresReducer } from './main/genres/state/genres.reducers';
+import { characteristicsReducer } from './main/characteristics/state/characteristics.reducers';
+import { watchablesReducer } from './main/watchables/state/watchables.reducers';
+import { WatchablesEffects } from './main/watchables/state/watchables.effects';
+import { GenresEffects } from './main/genres/state/genres.effects';
+import { CharacteristicsEffects } from './main/characteristics/state/characteristics.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,12 +26,19 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     StoreModule.forRoot({
       Auth: authReducer,
+      Watchables: watchablesReducer,
+      Genres: genresReducer,
+      Characteristics: characteristicsReducer,
     }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([
+      WatchablesEffects,
+      GenresEffects,
+      CharacteristicsEffects,
+    ]),
     HttpClientModule,
     MatSnackBarModule,
   ],

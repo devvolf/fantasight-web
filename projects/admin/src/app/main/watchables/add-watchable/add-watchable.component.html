@@ -1,36 +1,112 @@
 <div class="container">
   <div class="header">
     <p class="header-text">Add watchable</p>
+    <div class="actions">
+      <button mat-button (click)="onSubmit()">Add</button>
+      <button mat-button (click)="onCancel()">Cancel</button>
+    </div>
   </div>
   <div>
     <form class="form" [formGroup]="form">
-      <div class="form-left">
-        <div class="form-left-top">
-          <mat-form-field class="title-input" appearance="outline">
-            <mat-label>Title</mat-label>
-            <input matInput />
-          </mat-form-field>
-          <mat-form-field class="year-input" appearance="outline">
-            <mat-label>Year</mat-label>
-            <input matInput />
-          </mat-form-field>
+      <div class="form-top">
+        <div class="form-left">
+          <div class="form-left-top">
+            <mat-form-field class="title-input" appearance="outline">
+              <mat-label>Title</mat-label>
+              <input matInput formControlName="title" />
+            </mat-form-field>
+            <mat-form-field class="year-input" appearance="outline">
+              <mat-label>Year</mat-label>
+              <input matInput formControlName="year" />
+            </mat-form-field>
+          </div>
+          <div class="form-left-bottom">
+            <mat-form-field class="description-input" appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput formControlName="description"></textarea>
+            </mat-form-field>
+            <div class="selects-container">
+              <mat-form-field appearance="fill">
+                <mat-label>Genres</mat-label>
+                <mat-select formControlName="genres" multiple>
+                  <mat-option
+                    *ngFor="let item of genres$ | async"
+                    [value]="item"
+                    >{{ item.name }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>Characteristics</mat-label>
+                <mat-select formControlName="characteristics" multiple>
+                  <mat-option
+                    *ngFor="let item of characteristics$ | async"
+                    [value]="item"
+                    >{{ item.name }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
         </div>
-        <div class="form-left-bottom">
-          <mat-form-field class="description-input" appearance="outline">
-            <mat-label>Description</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
+        <div class="form-right">
+          <div class="image-container">
+            <div *ngIf="!selectedImageSource">
+              <button
+                class="image-add-button"
+                mat-button
+                (click)="imageInput.click()"
+              >
+                <mat-icon class="edit-icon">edit</mat-icon>
+              </button>
+            </div>
+            <div *ngIf="selectedImageSource" class="image-preview-container">
+              <img class="image" [src]="selectedImageSource" />
+              <button
+                class="image-edit-button"
+                mat-button
+                (click)="imageInput.click()"
+              >
+                <mat-icon class="edit-icon">edit</mat-icon>
+              </button>
+            </div>
+          </div>
+          <input
+            class="image-input"
+            #imageInput
+            type="file"
+            (change)="onImageSelected($event)"
+          />
         </div>
       </div>
-      <div class="form-right">
-        <div class="icon-influx">
-          <div class="icon-container">
-            <button mat-button><mat-icon class="edit-icon">edit</mat-icon></button>
+      <div class="form-bottom">
+        <div class="video-container">
+          <div *ngIf="!selectedVideoSource">
+            <button
+              class="video-add-button"
+              mat-button
+              (click)="videoInput.click()"
+            >
+              <mat-icon class="edit-icon">edit</mat-icon>
+            </button>
           </div>
-          <mat-form-field class="image-input" appearance="outline">
-            <input matInput />
-          </mat-form-field>
+          <div *ngIf="selectedVideoSource" class="video-preview-container">
+            <video class="video" [src]="selectedVideoSource"></video>
+            <button
+              class="video-edit-button"
+              mat-button
+              (click)="videoInput.click()"
+            >
+              <mat-icon class="edit-icon">edit</mat-icon>
+            </button>
+          </div>
         </div>
+        <input
+          class="video-input"
+          #videoInput
+          type="file"
+          (change)="onVideoSelected($event)"
+        />
       </div>
     </form>
   </div>

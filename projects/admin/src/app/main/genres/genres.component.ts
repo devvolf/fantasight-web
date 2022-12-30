@@ -49,7 +49,6 @@ export class GenresComponent implements OnInit {
         .pipe(
           debounce(() => timer(800)),
           tap((searchText) => {
-            console.log(searchText);
             this.genresStore.dispatch(getAllGenres({ searchText }));
           })
         )

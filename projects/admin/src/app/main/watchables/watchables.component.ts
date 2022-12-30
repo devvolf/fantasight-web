@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { Watchable } from '../../shared/models/watchable/watchable.model';
+import { getAllWatchables } from './state/watchables.actions';
+import { WatchablesState } from './state/watchables.reducers';
+import { watchables } from './state/watchables.selectors';
 
 @Component({
   selector: 'app-watchables',
@@ -7,9 +13,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./watchables.component.scss'],
 })
 export class WatchablesComponent implements OnInit {
-  constructor(private router: Router) {}
+  public watchables$: Observable<Watchable[]>;
 
-  ngOnInit(): void {}
+  private subscription: Subscription;
+
+  constructor(
+    private router: Router,
+    private watchablesStore: Store<WatchablesState>
+  ) {
+    this.subscription = new Subscription();
+    this.watchables$ = this.watchablesStore.select(watchables);
+  }
+
+  ngOnInit(): void {
+    this.watchablesStore.dispatch(getAllWatchables({}));
+  }
 
   onAdd(): void {
     this.router.navigateByUrl('/main/watchables/add');

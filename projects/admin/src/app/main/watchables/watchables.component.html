@@ -5,11 +5,8 @@
     <button mat-button (click)="onAdd()">Add</button>
   </div>
   <div class="list">
-    <div class="list-element"><app-watchable></app-watchable></div>
-    <div class="list-element"><app-watchable></app-watchable></div>
-    <div class="list-element"><app-watchable></app-watchable></div>
-    <div class="list-element"><app-watchable></app-watchable></div>
-    <div class="list-element"><app-watchable></app-watchable></div>
-    <div class="list-element"><app-watchable></app-watchable></div>
+    <div class="list-element" *ngFor="let item of watchables$ | async">
+      <app-watchable [data]="item"></app-watchable>
+    </div>
   </div>
 </div>

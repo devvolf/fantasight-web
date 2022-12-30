@@ -20,8 +20,8 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [GenresComponent, AddGenreComponent, EditGenreComponent],
   imports: [
-    StoreModule.forFeature(Features.Genres, genresReducer),
-    EffectsModule.forFeature([GenresEffects]),
+    // StoreModule.forFeature(Features.Genres, genresReducer),
+    // EffectsModule.forFeature([GenresEffects]),
     CommonModule,
     GenresRoutingModule,
     MatTableModule,

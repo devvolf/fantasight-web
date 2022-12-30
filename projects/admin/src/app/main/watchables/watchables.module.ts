@@ -10,10 +10,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { Features } from '../../shared/consts/features.consts';
+import { watchablesReducer } from './state/watchables.reducers';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { WatchablesEffects } from './state/watchables.effects';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [WatchablesComponent, AddWatchableComponent],
   imports: [
+    // StoreModule.forFeature(Features.Watchables, watchablesReducer),
+    // EffectsModule.forFeature([WatchablesEffects]),
     CommonModule,
     WatchablesRoutingModule,
     WatchableModule,
@@ -21,7 +29,8 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule,
   ],
 })
 export class WatchablesModule {}

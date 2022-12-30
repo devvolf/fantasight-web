@@ -24,8 +24,8 @@ import { FormsModule } from '@angular/forms';
     EditCharacteristicComponent,
   ],
   imports: [
-    StoreModule.forFeature(Features.Characteristics, characteristicsReducer),
-    EffectsModule.forFeature([CharacteristicsEffects]),
+    // StoreModule.forFeature(Features.Characteristics, characteristicsReducer),
+    // EffectsModule.forFeature([CharacteristicsEffects]),
     CommonModule,
     CharacteristicsRoutingModule,
     MatTableModule,

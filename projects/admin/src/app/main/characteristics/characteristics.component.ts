@@ -55,7 +55,6 @@ export class CharacteristicsComponent implements OnInit {
         .pipe(
           debounce(() => timer(800)),
           tap((searchText) => {
-            console.log(searchText);
             this.characteristicsStore.dispatch(
               getAllCharacteristics({ searchText })
             );
