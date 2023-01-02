@@ -1,38 +1,61 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable, switchMap, tap } from 'rxjs';
 import { Characteristic } from '../../../shared/models/characteristic/characteristic.model';
 import { Genre } from '../../../shared/models/genre/genre.model';
 import { FilmPayload } from '../../../shared/models/watchable/film/film.model';
 import { SeriePayload } from '../../../shared/models/watchable/serie/serie.model';
-import { WatchableType } from '../../../shared/models/watchable/watchable.model';
+import {
+  Watchable,
+  WatchableType,
+} from '../../../shared/models/watchable/watchable.model';
 import { getAllCharacteristics } from '../../characteristics/state/characteristics.actions';
 import { CharacteristicsState } from '../../characteristics/state/characteristics.reducers';
 import { characteristics } from '../../characteristics/state/characteristics.selectors';
 import { getAllGenres } from '../../genres/state/genres.actions';
 import { GenresState } from '../../genres/state/genres.reducers';
 import { genres } from '../../genres/state/genres.selectors';
-import { addFilm, addSerie } from '../state/watchables.actions';
+import {
+  addFilm,
+  addSerie,
+  editFilm,
+  editSerie,
+} from '../state/watchables.actions';
 import { WatchablesState } from '../state/watchables.reducers';
+import { watchable } from '../state/watchables.selectors';
 
 @Component({
-  selector: 'app-add-watchable',
-  templateUrl: './add-watchable.component.html',
-  styleUrls: ['./add-watchable.component.scss'],
+  selector: 'app-edit-watchable',
+  templateUrl: './edit-watchable.component.html',
+  styleUrls: ['./edit-watchable.component.scss'],
 })
-export class AddWatchableComponent implements OnInit {
+export class EditWatchableComponent implements OnInit {
   public genres$: Observable<Genre[]>;
   public characteristics$: Observable<Characteristic[]>;
 
+  private id = '';
+  public watchable$: Observable<Watchable | undefined>;
   public type = WatchableType.SERIE;
 
   constructor(
     private watchablesStore: Store<WatchablesState>,
     private genresStore: Store<GenresState>,
-    private characteristicsStore: Store<CharacteristicsState>
+    private characteristicsStore: Store<CharacteristicsState>,
+    private route: ActivatedRoute
   ) {
     this.genres$ = this.genresStore.select(genres);
     this.characteristics$ = this.characteristicsStore.select(characteristics);
+    this.watchable$ = this.route.params.pipe(
+      map((params: Params) => params['id']),
+      tap((id) => (this.id = id)),
+      switchMap((id: string) => this.watchablesStore.select(watchable(id))),
+      tap((watchable: Watchable | undefined) => {
+        if (watchable) {
+          this.type = watchable.type;
+        }
+      })
+    );
   }
 
   ngOnInit(): void {
@@ -56,13 +79,13 @@ export class AddWatchableComponent implements OnInit {
   onSubmit(payload: FilmPayload | SeriePayload): void {
     if (this.filmType) {
       this.watchablesStore.dispatch(
-        addFilm({ payload: payload as FilmPayload })
+        editFilm({ payload: payload as FilmPayload })
       );
       return;
     }
 
     this.watchablesStore.dispatch(
-      addSerie({ payload: payload as SeriePayload })
+      editSerie({ payload: payload as SeriePayload })
     );
   }
 }

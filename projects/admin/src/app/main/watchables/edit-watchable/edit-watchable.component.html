@@ -1,21 +1,10 @@
 <div class="container">
   <div class="header">
-    <p class="header-text">Add watchable</p>
-    <div class="actions">
-      <button
-        *ngIf="filmType; else filmSwitch"
-        mat-button
-        (click)="switchType()"
-      >
-        Serie
-      </button>
-      <ng-template #filmSwitch>
-        <button mat-button (click)="switchType()">Film</button>
-      </ng-template>
-    </div>
+    <p class="header-text">Edit watchable</p>
   </div>
   <ng-container *ngIf="filmType; else serieForm">
     <app-film-form
+      [watchable]="watchable$ | async"
       [genres]="genres$ | async"
       [characteristics]="characteristics$ | async"
       (onSubmit)="onSubmit($event)"
@@ -23,6 +12,7 @@
   </ng-container>
   <ng-template #serieForm>
     <app-serie-form
+      [watchable]="watchable$ | async"
       [genres]="genres$ | async"
       [characteristics]="characteristics$ | async"
       (onSubmit)="onSubmit($event)"

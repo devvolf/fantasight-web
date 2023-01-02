@@ -6,7 +6,11 @@
   </div>
   <div class="list">
     <div class="list-element" *ngFor="let item of watchables$ | async">
-      <app-watchable [data]="item"></app-watchable>
+      <app-watchable
+        [data]="item"
+        (onEdit)="onEdit($event)"
+        (onDelete)="onDelete($event)"
+      ></app-watchable>
     </div>
   </div>
 </div>

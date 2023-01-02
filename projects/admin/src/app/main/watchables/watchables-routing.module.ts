@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddWatchableComponent } from './add-watchable/add-watchable.component';
+import { EditWatchableComponent } from './edit-watchable/edit-watchable.component';
 import { WatchablesComponent } from './watchables.component';
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'add',
     component: AddWatchableComponent,
+  },
+  {
+    path: ':id/edit',
+    component: EditWatchableComponent,
   },
 ];
 

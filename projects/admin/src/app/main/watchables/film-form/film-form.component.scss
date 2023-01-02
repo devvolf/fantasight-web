@@ -1,0 +1,136 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .header-text {
+    font-size: 20px;
+  }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+
+  .form-top {
+    display: flex;
+
+    .form-left {
+      margin-right: 24px;
+
+      .form-left-top {
+        .title-input {
+          width: 400px;
+          margin-right: 24px;
+        }
+
+        .year-input {
+          width: 200px;
+        }
+      }
+
+      .form-left-bottom {
+        .description-input {
+          width: 100%;
+
+          textarea {
+            height: 150px;
+          }
+        }
+      }
+
+      .selects-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    }
+
+    .form-right {
+      .image-container {
+        width: 300px;
+        height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid grey;
+        border-radius: 4px;
+
+        .image-add-button {
+          width: 300px;
+          height: 500px;
+        }
+
+        .image-preview-container {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+
+          .image-edit-button {
+            position: absolute;
+            justify-self: center;
+            align-self: center;
+            color: white;
+          }
+        }
+      }
+
+      .image-input {
+        visibility: hidden;
+      }
+    }
+  }
+
+  .form-bottom {
+    display: flex;
+    flex-direction: column;
+
+    .video-container {
+      width: 500px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid grey;
+      border-radius: 4px;
+
+      .video-add-button {
+        width: 500px;
+        height: 300px;
+      }
+
+      .video-preview-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .video {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+
+        .video-edit-button {
+          position: absolute;
+          justify-self: center;
+          align-self: center;
+          color: white;
+        }
+      }
+    }
+
+    .video-input {
+      visibility: hidden;
+    }
+  }
+}

@@ -11,19 +11,19 @@ export class StorageService {
 
   constructor(private httpClient: HttpClient) {}
 
-  uploadImage(file: File): Observable<any> {
+  uploadImages(files: File[]): Observable<any> {
     const url = `${this.url}/images`;
     const formData = new FormData();
-    formData.append('file', file);
-    
+    files.forEach((it) => formData.append('files', it));
+
     return this.httpClient.post(url, formData);
   }
 
-  uploadVideo(file: File): Observable<any> {
+  uploadVideos(files: File[]): Observable<any> {
     const url = `${this.url}/videos`;
     const formData = new FormData();
-    formData.append('file', file);
-    
+    files.forEach((it) => formData.append('files', it));
+
     return this.httpClient.post(url, formData);
   }
 }

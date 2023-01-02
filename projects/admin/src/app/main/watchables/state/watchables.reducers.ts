@@ -2,9 +2,12 @@ import { createReducer, on } from '@ngrx/store';
 import { isProcessing } from '../../../auth/state/auth.selectors';
 import { Watchable } from '../../../shared/models/watchable/watchable.model';
 import {
-  addWatchable,
-  addWatchableFailure,
-  addWatchableSuccess,
+  addFilm,
+  addFilmFailure,
+  addFilmSuccess,
+  addSerie,
+  addSerieFailure,
+  addSerieSuccess,
   getAllWatchables,
   getAllWatchablesFailure,
   getAllWatchablesSuccess,
@@ -35,15 +38,27 @@ export const watchablesReducer = createReducer<WatchablesState>(
     ...state,
     isProcessing: false,
   })),
-  on(addWatchable, (state) => ({
+  on(addFilm, (state) => ({
     ...state,
     isProcessing: true,
   })),
-  on(addWatchableSuccess, (state) => ({
+  on(addFilmSuccess, (state) => ({
     ...state,
     isProcessing: false,
   })),
-  on(addWatchableFailure, (state) => ({
+  on(addFilmFailure, (state) => ({
+    ...state,
+    isProcessing: false,
+  })),
+  on(addSerie, (state) => ({
+    ...state,
+    isProcessing: true,
+  })),
+  on(addSerieSuccess, (state) => ({
+    ...state,
+    isProcessing: false,
+  })),
+  on(addSerieFailure, (state) => ({
     ...state,
     isProcessing: false,
   }))

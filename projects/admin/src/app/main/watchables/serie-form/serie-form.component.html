@@ -1,0 +1,140 @@
+<div class="header">
+  <p class="header-text">Add Serie</p>
+  <button mat-button (click)="onSubmitFn()">Save</button>
+</div>
+<form class="form" [formGroup]="form">
+  <div class="form-top">
+    <div class="form-left">
+      <div class="form-left-top">
+        <mat-form-field class="title-input" appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" />
+        </mat-form-field>
+        <mat-form-field class="year-input" appearance="outline">
+          <mat-label>Year</mat-label>
+          <input matInput formControlName="year" />
+        </mat-form-field>
+      </div>
+      <div class="form-left-bottom">
+        <mat-form-field class="description-input" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <div class="selects-container">
+          <mat-form-field appearance="fill">
+            <mat-label>Genres</mat-label>
+            <mat-select formControlName="genres" multiple>
+              <mat-option *ngFor="let item of genres" [value]="item">{{
+                item.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Characteristics</mat-label>
+            <mat-select formControlName="characteristics" multiple>
+              <mat-option *ngFor="let item of characteristics" [value]="item">{{
+                item.name
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <div class="form-right">
+      <div class="image-container">
+        <div *ngIf="!selectedImageSource">
+          <button
+            class="image-add-button"
+            mat-button
+            (click)="imageInput.click()"
+          >
+            <mat-icon class="edit-icon">edit</mat-icon>
+          </button>
+        </div>
+        <div *ngIf="selectedImageSource" class="image-preview-container">
+          <img class="image" [src]="selectedImageSource" />
+          <button
+            class="image-edit-button"
+            mat-button
+            (click)="imageInput.click()"
+          >
+            <mat-icon class="edit-icon">edit</mat-icon>
+          </button>
+        </div>
+      </div>
+      <input
+        class="image-input"
+        #imageInput
+        type="file"
+        (change)="onImageSelected($event)"
+      />
+    </div>
+  </div>
+  <div class="form-bottom">
+    <div class="header">
+      <p>Episodes</p>
+      <button mat-button (click)="onAddEpisode()">Add</button>
+    </div>
+    <table
+      class="table"
+      mat-table
+      [dataSource]="episodes$"
+      class="table mat-elevation-z8"
+    >
+      <ng-container matColumnDef="id">
+        <th mat-header-cell class="id-column" *matHeaderCellDef>Id</th>
+        <td mat-cell class="id-column" *matCellDef="let element">
+          {{ element.id }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="title">
+        <th mat-header-cell class="title-column" *matHeaderCellDef>Title</th>
+        <td mat-cell class="title-column" *matCellDef="let element">
+          {{ element.title }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell class="description-column" *matHeaderCellDef>
+          Description
+        </th>
+        <td mat-cell class="description-column" *matCellDef="let element">
+          {{ element.description }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="season">
+        <th mat-header-cell class="season-column" *matHeaderCellDef>Season</th>
+        <td mat-cell class="season-column" *matCellDef="let element">
+          {{ element.seasonIndex }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="poster">
+        <th mat-header-cell class="poster-column" *matHeaderCellDef>Poster</th>
+        <td mat-cell class="poster-column" *matCellDef="let element">
+          {{ element.posterImage }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="video">
+        <th mat-header-cell class="video-column" *matHeaderCellDef>Video</th>
+        <td mat-cell class="video-column" *matCellDef="let element">
+          {{ element.video }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell class="date-column" *matHeaderCellDef>Actions</th>
+        <td mat-cell class="date-column" *matCellDef="let element">
+          <div>
+            <button mat-icon-button (click)="onEditEpisode(element)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onDeleteEpisode(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</form>

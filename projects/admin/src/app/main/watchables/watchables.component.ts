@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { Watchable } from '../../shared/models/watchable/watchable.model';
-import { getAllWatchables } from './state/watchables.actions';
+import { deleteWatchable, getAllWatchables } from './state/watchables.actions';
 import { WatchablesState } from './state/watchables.reducers';
 import { watchables } from './state/watchables.selectors';
 
@@ -31,5 +31,13 @@ export class WatchablesComponent implements OnInit {
 
   onAdd(): void {
     this.router.navigateByUrl('/main/watchables/add');
+  }
+
+  onEdit(id: string): void {
+    this.router.navigateByUrl(`main/watchables/${id}/edit`);
+  }
+
+  onDelete(id: string): void {
+    this.watchablesStore.dispatch(deleteWatchable({ id }));
   }
 }

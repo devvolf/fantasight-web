@@ -16,9 +16,22 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { WatchablesEffects } from './state/watchables.effects';
 import { MatSelectModule } from '@angular/material/select';
+import { FilmFormComponent } from './film-form/film-form.component';
+import { SerieFormComponent } from './serie-form/serie-form.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { SerieEpisodeFormComponent } from './serie-form/serie-episode-form/serie-episode-form.component';
+import { EditWatchableComponent } from './edit-watchable/edit-watchable.component';
 
 @NgModule({
-  declarations: [WatchablesComponent, AddWatchableComponent],
+  declarations: [
+    WatchablesComponent,
+    AddWatchableComponent,
+    FilmFormComponent,
+    SerieFormComponent,
+    SerieEpisodeFormComponent,
+    EditWatchableComponent,
+  ],
   imports: [
     // StoreModule.forFeature(Features.Watchables, watchablesReducer),
     // EffectsModule.forFeature([WatchablesEffects]),
@@ -31,6 +44,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatInputModule,
     MatIconModule,
     MatSelectModule,
+    MatTableModule,
+    MatDialogModule,
   ],
 })
 export class WatchablesModule {}

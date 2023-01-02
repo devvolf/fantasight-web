@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Watchable } from '../../models/watchable/watchable.model';
 
 @Component({
@@ -8,8 +8,21 @@ import { Watchable } from '../../models/watchable/watchable.model';
 })
 export class WatchableComponent implements OnInit {
   @Input() data: Watchable | undefined;
+  @Output() onEdit: EventEmitter<string>;
+  @Output() onDelete: EventEmitter<string>;
 
-  constructor() {}
+  constructor() {
+    this.onEdit = new EventEmitter();
+    this.onDelete = new EventEmitter();
+  }
 
   ngOnInit(): void {}
+
+  onEditFn(): void {
+    this.onEdit.emit(this.data?._id);
+  }
+
+  onDeleteFn(): void {
+    this.onDelete.emit(this.data?._id);
+  }
 }
