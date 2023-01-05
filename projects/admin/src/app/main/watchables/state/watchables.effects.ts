@@ -282,12 +282,14 @@ export class WatchablesEffects {
                 title: it.title,
                 description: it.description,
                 seasonIndex: it.seasonIndex,
-                posterImageId: mediaMap.get(index)?.image
-                  ? imagesResponse[mediaIndex].id
-                  : null,
-                videoId: mediaMap.get(index)?.video
-                  ? videosResponse[mediaIndex].id
-                  : null,
+                posterImageId:
+                  mediaMap.get(index)?.image && imagesResponse[mediaIndex]
+                    ? imagesResponse[mediaIndex].id
+                    : null,
+                videoId:
+                  mediaMap.get(index)?.video && videosResponse[mediaIndex]
+                    ? videosResponse[mediaIndex].id
+                    : null,
               };
 
               mediaIndex++;
@@ -307,7 +309,9 @@ export class WatchablesEffects {
             };
 
             return this.watchablesService.editSerie(request).pipe(
-              map(() => WatchablesActions.editSerieSuccess()),
+              map(() => {
+                return WatchablesActions.editSerieSuccess();
+              }),
               catchError((error: HttpErrorResponse) =>
                 of(WatchablesActions.editSerieFailure({ error }))
               )
@@ -321,7 +325,7 @@ export class WatchablesEffects {
   editSerieSuccess$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(WatchablesActions.editFilmSuccess),
+        ofType(WatchablesActions.editSerieSuccess),
         tap(() => {
           this.snackbarService.success('Serie edited successfully!');
           this.router.navigateByUrl('main/watchables');
