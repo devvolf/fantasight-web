@@ -5,6 +5,7 @@ import { Features } from '../../shared/consts/features.consts';
 
 export const AuthActions = {
   InternalLogin: `[${Features.Auth}] Internal Login`,
+  InternalLoginSuccess: `[${Features.Auth}] Internal Login Success`,
   InternalLoginError: `[${Features.Auth}] Internal Login Error`,
   Login: `[${Features.Auth}] Login`,
   LoggedIn: `[${Features.Auth}] Logged In`,
@@ -15,6 +16,10 @@ export const AuthActions = {
 };
 
 export const internalLogin = createAction(AuthActions.InternalLogin);
+export const internalLoginSuccess = createAction(
+  AuthActions.InternalLoginSuccess,
+  props<{ authData: AuthData }>()
+);
 export const internalLoginError = createAction(AuthActions.InternalLoginError);
 
 export const login = createAction(
@@ -37,4 +42,3 @@ export const loginError = createAction(
 export const logout = createAction(AuthActions.Logout);
 
 export const loggedOut = createAction(AuthActions.LoggedOut);
-

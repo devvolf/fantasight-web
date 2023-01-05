@@ -6,7 +6,7 @@ import { internalLogin, login } from '../state/auth.actions';
 import { AuthState } from '../state/auth.reducers';
 import { isProcessing } from '../state/auth.selectors';
 
-const USERNAME_MIN_LENGTH = 6;
+const USERNAME_MIN_LENGTH = 5;
 
 @Component({
   selector: 'app-login',

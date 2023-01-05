@@ -1,7 +1,12 @@
 <div class="container">
   <div class="header">
     <p class="header-text">Watchables</p>
-    <input class="header-input" />
+    <input
+      matInput
+      class="header-input"
+      [ngModel]="searchText"
+      (ngModelChange)="onSearchTextChange($event)"
+    />
     <button mat-button (click)="onAdd()">Add</button>
   </div>
   <div class="list">

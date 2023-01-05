@@ -40,6 +40,13 @@ export class WatchablesService {
     return this.httpClient.post(url, payload);
   }
 
+  public editSerie(payload: any): Observable<any> {
+    const { id } = payload;
+    const url = `${this.url}/series/${id}`;
+
+    return this.httpClient.put(url, payload);
+  }
+
   public delete(id: string): Observable<any> {
     const url = `${this.url}/${id}`;
 

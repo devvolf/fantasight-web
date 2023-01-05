@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../core/guards/auth.guard';
 import { MainComponent } from './main.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'watchables',
@@ -22,7 +24,9 @@ const routes: Routes = [
       {
         path: 'characteristics',
         loadChildren: () =>
-          import('./characteristics/characteristics.module').then((m) => m.CharacteristicsModule),
+          import('./characteristics/characteristics.module').then(
+            (m) => m.CharacteristicsModule
+          ),
       },
       {
         path: '',

@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import {
   internalLogin,
   internalLoginError,
+  internalLoginSuccess,
   loggedIn,
   loggedOut,
   login,
@@ -27,7 +28,12 @@ export const authReducer = createReducer<AuthState>(
   on(internalLogin, (state) => ({
     ...state,
     isLoggedIn: false,
-    isProcessing: true,
+    isProcessing: false,
+  })),
+  on(internalLoginSuccess, (state, { authData }) => ({
+    ...state,
+    ...authData,
+    isLoggedIn: true,
   })),
   on(internalLoginError, (state) => ({
     ...state,
@@ -37,10 +43,8 @@ export const authReducer = createReducer<AuthState>(
   on(login, (state) => ({
     ...state,
   })),
-  on(loggedIn, (state, { authData }) => ({
+  on(loggedIn, (state) => ({
     ...state,
-    ...authData,
-    isLoggedIn: true,
   })),
   on(logout, (state) => ({
     ...state,

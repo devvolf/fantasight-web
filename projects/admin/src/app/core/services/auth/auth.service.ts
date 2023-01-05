@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   public login(authRequest: AuthRequest): Observable<any> {
-    const url = `${this.authUrl}/login`;
+    const url = `${this.authUrl}/admin/login`;
     return this.httpClient.post(url, authRequest);
   }
 

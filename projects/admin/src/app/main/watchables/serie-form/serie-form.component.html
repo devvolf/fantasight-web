@@ -24,7 +24,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Genres</mat-label>
             <mat-select formControlName="genres" multiple>
-              <mat-option *ngFor="let item of genres" [value]="item">{{
+              <mat-option *ngFor="let item of genres" [value]="item._id">{{
                 item.name
               }}</mat-option>
             </mat-select>
@@ -32,7 +32,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Characteristics</mat-label>
             <mat-select formControlName="characteristics" multiple>
-              <mat-option *ngFor="let item of characteristics" [value]="item">{{
+              <mat-option *ngFor="let item of characteristics" [value]="item._id">{{
                 item.name
               }}</mat-option>
             </mat-select>

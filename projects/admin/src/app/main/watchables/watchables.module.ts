@@ -6,7 +6,7 @@ import { WatchablesComponent } from './watchables.component';
 import { WatchableModule } from '../../shared/components/watchable/watchable.module';
 import { MatButtonModule } from '@angular/material/button';
 import { AddWatchableComponent } from './add-watchable/add-watchable.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
@@ -46,6 +46,7 @@ import { EditWatchableComponent } from './edit-watchable/edit-watchable.componen
     MatSelectModule,
     MatTableModule,
     MatDialogModule,
+    FormsModule,
   ],
 })
 export class WatchablesModule {}

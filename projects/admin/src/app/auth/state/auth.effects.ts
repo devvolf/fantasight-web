@@ -29,7 +29,7 @@ export class AuthEffects {
                 refreshToken,
               } as AuthData;
 
-              return AuthActions.loggedIn({
+              return AuthActions.internalLoginSuccess({
                 authData,
               });
             })

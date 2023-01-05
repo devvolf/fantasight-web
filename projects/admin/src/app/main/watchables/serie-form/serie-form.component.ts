@@ -38,8 +38,8 @@ export class SerieFormComponent implements OnInit {
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     year: new FormControl('', [Validators.required]),
-    genres: new FormControl([] as Genre[], []),
-    characteristics: new FormControl([] as Characteristic[], []),
+    genres: new FormControl([] as string[], []),
+    characteristics: new FormControl([] as string[], []),
   });
 
   public episodesSubject: BehaviorSubject<SerieEpisodePayload[]>;
@@ -71,8 +71,8 @@ export class SerieFormComponent implements OnInit {
           title: serie.title,
           description: serie.description,
           year: serie.year.toString(),
-          genres: serie.genres,
-          characteristics: serie.characteristics,
+          genres: serie.genres.map((it) => it._id),
+          characteristics: serie.characteristics.map((it) => it._id),
         });
 
         const episodesPayloads = serie.episodes.map(
@@ -132,8 +132,11 @@ export class SerieFormComponent implements OnInit {
             if (updatedEpisode) {
               const currentEpisodes = this.episodesSubject.value;
               const index = currentEpisodes.indexOf(episode);
+
               if (index > -1) {
-                const updatedEpisodes = currentEpisodes.splice(index, 1);
+                const updatedEpisodes = currentEpisodes.filter(
+                  (value, valueIndex) => valueIndex !== index
+                );
                 updatedEpisodes.push(updatedEpisode);
                 this.episodesSubject.next(updatedEpisodes);
               }
@@ -147,25 +150,25 @@ export class SerieFormComponent implements OnInit {
   onDeleteEpisode(episode: SerieEpisodePayload): void {
     const currentEpisodes = this.episodesSubject.value;
     const index = currentEpisodes.indexOf(episode);
+
     if (index > -1) {
-      const updatedEpisodes = currentEpisodes.splice(index, 1);
+      const updatedEpisodes = currentEpisodes.filter(
+        (value, valueIndex) => valueIndex !== index
+      );
       this.episodesSubject.next(updatedEpisodes);
     }
   }
 
   onSubmitFn(): void {
-    if (this.form.invalid || !this.selectedImage) {
+    if (this.form.invalid || !this.selectedImageSource) {
       return;
     }
 
-    const genreIds =
-      this.form.get('genres')?.value?.map((it: Genre) => it._id) || [];
-    const characteristicIds =
-      this.form
-        .get('characteristics')
-        ?.value?.map((it: Characteristic) => it._id) || [];
+    const genreIds = this.form.get('genres')?.value;
+    const characteristicIds = this.form.get('characteristics')?.value;
 
     const payload = {
+      id: this.watchable?._id,
       title: this.form.get('title')?.value!,
       description: this.form.get('description')?.value!,
       year: this.form.get('year')?.value!,

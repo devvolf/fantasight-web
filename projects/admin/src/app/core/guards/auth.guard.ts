@@ -2,30 +2,44 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  CanActivateChild,
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { select, Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
-import { AuthState } from '../../auth/state/auth.reducers';
-import { isLoggedIn } from '../../auth/state/auth.selectors';
+import { Observable, of } from 'rxjs';
+import { AuthService } from '../services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
-  constructor(private store: Store<AuthState>, private route: Router) {}
+export class AuthGuard implements CanActivate, CanActivateChild {
+  constructor(private route: Router, private auth: AuthService) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.store.pipe(
-      select(isLoggedIn),
-      tap((isLoggedIn) => {
-        if (!isLoggedIn) {
-          this.route.navigateByUrl('/auth');
-        }
-      })
-    );
+    const token = this.auth.getLocalAuth()?.accessToken;
+
+    if (!token) {
+      this.route.navigateByUrl('/auth');
+      return of(false);
+    }
+
+    return of(true);
+  }
+
+  canActivateChild(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
+    const token = this.auth.getLocalAuth()?.accessToken;
+
+    if (!token) {
+      this.route.navigateByUrl('/auth');
+      return of(false);
+    }
+
+    return of(true);
   }
 }

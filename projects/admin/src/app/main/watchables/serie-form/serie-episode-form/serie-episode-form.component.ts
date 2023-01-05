@@ -56,8 +56,15 @@ export class SerieEpisodeFormComponent implements OnInit {
         this.selectedVideoSource = this.episode.streamUrl;
       }
 
-      this.selectedImage = this.episode.posterImage;
-      this.selectedVideo = this.episode.video;
+      if (this.episode.posterImage) {
+        this.selectedImage = this.episode.posterImage;
+        this.selectedImageReader.readAsDataURL(this.episode.posterImage);
+      }
+
+      if (this.episode.video) {
+        this.selectedVideo = this.episode.video;
+        this.selectedVideoReader.readAsDataURL(this.episode.video);
+      }
     }
   }
 
@@ -89,6 +96,7 @@ export class SerieEpisodeFormComponent implements OnInit {
     }
 
     const payload = {
+      id: this.episode && this.episode.id ? this.episode.id : null,
       title: this.form.get('title')?.value!,
       description: this.form.get('description')?.value!,
       seasonIndex: this.form.get('seasonIndex')?.value!,

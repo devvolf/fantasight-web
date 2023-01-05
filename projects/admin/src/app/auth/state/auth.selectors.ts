@@ -13,3 +13,8 @@ export const isLoggedIn = createSelector(
   getAuthState,
   (state: AuthState) => state.isLoggedIn
 );
+
+export const token = createSelector(
+  getAuthState,
+  (state: AuthState) => state.accessToken
+);

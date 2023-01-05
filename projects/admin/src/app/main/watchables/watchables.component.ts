@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  debounce,
+  Observable,
+  Subscription,
+  tap,
+  timer,
+} from 'rxjs';
 import { Watchable } from '../../shared/models/watchable/watchable.model';
 import { deleteWatchable, getAllWatchables } from './state/watchables.actions';
 import { WatchablesState } from './state/watchables.reducers';
@@ -13,6 +20,9 @@ import { watchables } from './state/watchables.selectors';
   styleUrls: ['./watchables.component.scss'],
 })
 export class WatchablesComponent implements OnInit {
+  public searchText = '';
+  private searchText$: BehaviorSubject<string>;
+
   public watchables$: Observable<Watchable[]>;
 
   private subscription: Subscription;
@@ -23,10 +33,25 @@ export class WatchablesComponent implements OnInit {
   ) {
     this.subscription = new Subscription();
     this.watchables$ = this.watchablesStore.select(watchables);
+    this.searchText$ = new BehaviorSubject('');
   }
 
   ngOnInit(): void {
     this.watchablesStore.dispatch(getAllWatchables({}));
+    this.subscription.add(
+      this.searchText$
+        .pipe(
+          debounce(() => timer(800)),
+          tap((searchText) => {
+            this.watchablesStore.dispatch(getAllWatchables({ searchText }));
+          })
+        )
+        .subscribe()
+    );
+  }
+
+  onSearchTextChange(text: string): void {
+    this.searchText$.next(text);
   }
 
   onAdd(): void {

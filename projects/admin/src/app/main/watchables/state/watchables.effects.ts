@@ -223,6 +223,113 @@ export class WatchablesEffects {
     { dispatch: false }
   );
 
+  editSerie$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(WatchablesActions.editSerie),
+      exhaustMap((action) => {
+        const { payload } = action;
+
+        let mediaMap = new Map<
+          number,
+          { image: File | null; video: File | null }
+        >();
+
+        if (payload.posterImage) {
+          mediaMap.set(-1, {
+            image: payload.posterImage,
+            video: new File([], 'serie'),
+          });
+        }
+
+        payload.episodes.forEach((it, index) => {
+          if (it.posterImage || it.video) {
+            mediaMap.set(index, { image: it.posterImage, video: it.video });
+          }
+        });
+
+        const images = [...mediaMap.values()]
+          .filter((it) => it.image)
+          .map((it) => it.image) as File[];
+        const videos = [...mediaMap.values()]
+          .filter((it) => it.video)
+          .map((it) => it.video) as File[];
+
+        return zip([
+          this.storageService.uploadImages(images),
+          this.storageService.uploadVideos(videos),
+        ]).pipe(
+          switchMap(([imagesResponse, videosResponse]: [any, any]) => {
+            let mediaIndex = 0;
+
+            if (mediaMap.has(-1)) {
+              mediaIndex++;
+            }
+
+            const episodesRequest = payload.episodes.map((it, index) => {
+              if (!mediaMap.has(index)) {
+                return {
+                  id: it && it.id ? it.id : null,
+                  title: it.title,
+                  description: it.description,
+                  seasonIndex: it.seasonIndex,
+                  posterImageId: null,
+                  videoId: null,
+                };
+              }
+
+              const request = {
+                id: it && it.id ? it.id : null,
+                title: it.title,
+                description: it.description,
+                seasonIndex: it.seasonIndex,
+                posterImageId: mediaMap.get(index)?.image
+                  ? imagesResponse[mediaIndex].id
+                  : null,
+                videoId: mediaMap.get(index)?.video
+                  ? videosResponse[mediaIndex].id
+                  : null,
+              };
+
+              mediaIndex++;
+
+              return request;
+            });
+
+            const request = {
+              id: payload.id,
+              title: payload.title,
+              description: payload.description,
+              year: payload.year,
+              genreIds: payload.genreIds,
+              characteristicIds: payload.characteristicIds,
+              posterImageId: mediaMap.has(-1) ? imagesResponse[0].id : null,
+              episodes: episodesRequest,
+            };
+
+            return this.watchablesService.editSerie(request).pipe(
+              map(() => WatchablesActions.editSerieSuccess()),
+              catchError((error: HttpErrorResponse) =>
+                of(WatchablesActions.editSerieFailure({ error }))
+              )
+            );
+          })
+        );
+      })
+    )
+  );
+
+  editSerieSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(WatchablesActions.editFilmSuccess),
+        tap(() => {
+          this.snackbarService.success('Serie edited successfully!');
+          this.router.navigateByUrl('main/watchables');
+        })
+      ),
+    { dispatch: false }
+  );
+
   deleteWatchable$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WatchablesActions.deleteWatchable),

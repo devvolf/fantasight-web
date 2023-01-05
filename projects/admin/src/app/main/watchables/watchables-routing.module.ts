@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../../core/guards/auth.guard';
 import { AddWatchableComponent } from './add-watchable/add-watchable.component';
 import { EditWatchableComponent } from './edit-watchable/edit-watchable.component';
 import { WatchablesComponent } from './watchables.component';

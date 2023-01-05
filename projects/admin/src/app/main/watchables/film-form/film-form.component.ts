@@ -26,8 +26,8 @@ export class FilmFormComponent implements OnInit {
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     year: new FormControl('', [Validators.required]),
-    genres: new FormControl([] as Genre[], []),
-    characteristics: new FormControl([] as Characteristic[], []),
+    genres: new FormControl([] as string[], []),
+    characteristics: new FormControl([] as string[], []),
   });
 
   public selectedImage: File | null = null;
@@ -57,14 +57,16 @@ export class FilmFormComponent implements OnInit {
           title: film.title,
           description: film.description,
           year: film.year.toString(),
-          genres: film.genres,
-          characteristics: film.characteristics,
+          genres: film.genres.map((it) => it._id),
+          characteristics: film.characteristics.map((it) => it._id),
         });
 
         this.selectedImageSource = film.posterUrl;
         this.selectedVideoSource = film.streamUrl;
       }
     }
+
+    this.form.updateValueAndValidity();
   }
 
   onImageSelected(event: any): void {
@@ -94,12 +96,8 @@ export class FilmFormComponent implements OnInit {
       return;
     }
 
-    const genreIds =
-      this.form.get('genres')?.value?.map((it: Genre) => it._id) || [];
-    const characteristicIds =
-      this.form
-        .get('characteristics')
-        ?.value?.map((it: Characteristic) => it._id) || [];
+    const genreIds = this.form.get('genres')?.value;
+    const characteristicIds = this.form.get('characteristics')?.value;
 
     const payload = {
       id: this.watchable?._id,
