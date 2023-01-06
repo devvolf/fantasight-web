@@ -2,7 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'projects/admin/src/environments/environment';
 import { Observable } from 'rxjs';
-import { AuthRequest, AuthData } from '../../models/auth.model';
+import {
+  AuthRequest,
+  AuthData,
+  ChangePasswordRequest,
+} from '../../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -44,5 +48,10 @@ export class AuthService {
 
   public clearLocalAuth(): void {
     localStorage.removeItem(this.authStorageKey);
+  }
+
+  public changePassword(request: ChangePasswordRequest): Observable<any> {
+    const url = `${this.authUrl}/change-password`;
+    return this.httpClient.post(url, request);
   }
 }

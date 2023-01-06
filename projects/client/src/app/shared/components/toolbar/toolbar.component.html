@@ -1,0 +1,16 @@
+<mat-toolbar class="toolbar">
+  <span class="title">FANTASIGHT</span>
+  <input
+    matInput
+    class="header-input"
+    [ngModel]="searchText"
+    (ngModelChange)="onSearchTextChangeFn($event)"
+  />
+  <button mat-button [matMenuTriggerFor]="menu">{{ username }}</button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onChangePasswordFn()">
+      Change password
+    </button>
+    <button mat-menu-item (click)="onLogoutFn()">Logout</button>
+  </mat-menu>
+</mat-toolbar>

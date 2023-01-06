@@ -39,13 +39,7 @@ export class LoginComponent implements OnInit {
     return !!control?.dirty && !!control.hasError('required');
   }
 
-  get isAuthProcessing(): Observable<boolean> {
-    return this.authStore.select(isProcessing);
-  }
-
-  ngOnInit(): void {
-    this.authStore.dispatch(internalLogin());
-  }
+  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.form.invalid) {

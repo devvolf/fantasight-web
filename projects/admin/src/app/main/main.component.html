@@ -1,5 +1,9 @@
 <div class="main-container">
-  <app-toolbar></app-toolbar>
+  <app-toolbar
+    [username]="username"
+    (onChangePassword)="onChangePassword()"
+    (onLogout)="onLogout()"
+  ></app-toolbar>
   <mat-drawer-container class="drawer-container">
     <mat-drawer class="drawer" mode="side" opened>
       <app-sidebar></app-sidebar>

@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  .info {
+    width: 100%;
+    display: flex;
+
+    .info-left {
+      display: flex;
+      flex-direction: column;
+      margin: 20px;
+
+      .poster-container {
+        width: 100%;
+        height: 400px;
+
+        .poster {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+
+    .info-right {
+      display: flex;
+      flex-direction: column;
+      margin: 20px;
+
+      .info-line {
+        width: 100%;
+        display: flex;
+
+        .info-line-header {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .description {
+    width: 100%;
+    margin: 0px 20px;
+  }
+
+  .episodes {
+    width: 100%;
+    margin: 0px 20px;
+    display: flex;
+    flex-direction: column;
+
+    .episodes-header {
+      width: 100%;
+    }
+
+    .episodes-info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .episode-info {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 8px 0px;
+
+      .episode-poster-container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .episode-poster {
+          height: 100%;
+        }
+
+        .episode-button {
+          position: absolute;
+          color: white
+        }
+      }
+    }
+  }
+}

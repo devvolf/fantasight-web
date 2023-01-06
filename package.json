@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "admin": "ng serve admin --port 4000",
+    "client": "ng serve client --port 4200",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",

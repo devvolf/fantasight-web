@@ -5,42 +5,11 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AuthData } from '../../core/models/auth.model';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { SnackbarService } from '../../core/services/snackbar/snackbar.service';
 import * as AuthActions from './auth.actions';
 
 @Injectable()
 export class AuthEffects {
-  internalLoginEffect$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(AuthActions.internalLogin),
-      exhaustMap(() => {
-        const localAuthData = this.authService.getLocalAuth();
-
-        if (localAuthData) {
-          const { refreshToken } = localAuthData;
-
-          if (!refreshToken) {
-            return of(AuthActions.internalLoginError());
-          }
-
-          return this.authService.refreshToken(refreshToken).pipe(
-            map((response) => {
-              const authData = {
-                ...response,
-                refreshToken,
-              } as AuthData;
-
-              return AuthActions.internalLoginSuccess({
-                authData,
-              });
-            })
-          );
-        }
-
-        return of(AuthActions.internalLoginError());
-      })
-    )
-  );
-
   loginEffect$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.login),
@@ -77,15 +46,22 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.logout),
       exhaustMap(() => {
-        const { refreshToken } = this.authService.getLocalAuth()!;
-        this.authService.clearLocalAuth();
+        const authData = this.authService.getLocalAuth();
+        if (authData) {
+          const { refreshToken } = authData;
 
-        return this.authService.logout(refreshToken).pipe(
-          map(() => AuthActions.loggedOut()),
-          catchError(() => {
-            return of(AuthActions.loggedOut());
-          })
-        );
+          this.authService.clearLocalAuth();
+
+          return this.authService.logout(refreshToken).pipe(
+            map(() => AuthActions.loggedOut()),
+            catchError(() => {
+              return of(AuthActions.loggedOut());
+            })
+          );
+        }
+
+        this.authService.clearLocalAuth();
+        return of(AuthActions.loggedOut());
       })
     )
   );
@@ -101,9 +77,41 @@ export class AuthEffects {
     { dispatch: false }
   );
 
+  changePasswordEffect$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.changePassword),
+      exhaustMap((action) => {
+        const { request } = action;
+
+        return this.authService.changePassword(request).pipe(
+          map((response) => {
+            this.snackbarService.success('Successfully changed password');
+            return AuthActions.logout();
+          }),
+          catchError((error: HttpErrorResponse) => {
+            return of(AuthActions.changePasswordError({ error }));
+          })
+        );
+      })
+    )
+  );
+
+  authFailure$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuthActions.loginError, AuthActions.changePasswordError),
+        tap((action) => {
+          const { error } = action;
+          this.snackbarService.error(error.error.message || error.message);
+        })
+      ),
+    { dispatch: false }
+  );
+
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {}
 }

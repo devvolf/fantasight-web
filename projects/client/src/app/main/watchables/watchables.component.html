@@ -1,0 +1,7 @@
+<div class="container">
+  <div class="list">
+    <div class="list-element" *ngFor="let item of watchables$ | async">
+      <app-watchable [data]="item" (onSelected)="onSelected($event)"></app-watchable>
+    </div>
+  </div>
+</div>

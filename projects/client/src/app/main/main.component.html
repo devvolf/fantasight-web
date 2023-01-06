@@ -1,0 +1,9 @@
+<div class="main-container">
+  <app-toolbar
+    [username]="username"
+    (onChangePassword)="onChangePassword()"
+    (onLogout)="onLogout()"
+    (onSearchTextChange)="onSearchTextChange($event)"
+  ></app-toolbar>
+  <router-outlet></router-outlet>
+</div>

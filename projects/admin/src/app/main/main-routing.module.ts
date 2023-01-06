@@ -10,6 +10,13 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
     children: [
       {
+        path: 'change-password',
+        loadChildren: () =>
+          import('./change-password/change-password.module').then(
+            (m) => m.ChangePasswordModule
+          ),
+      },
+      {
         path: 'watchables',
         loadChildren: () =>
           import('./watchables/watchables.module').then(

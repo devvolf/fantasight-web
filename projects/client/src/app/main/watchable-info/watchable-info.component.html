@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="info">
+    <div class="info-left">
+      <div class="poster-container">
+        <img class="poster" [src]="posterUrl" />
+      </div>
+      <div class="actions-container"></div>
+    </div>
+    <div class="info-right">
+      <div class="info-line">
+        <p class="info-line-header">Title:</p>
+        <p class="info-line-value">{{ title }}</p>
+      </div>
+      <div class="info-line">
+        <p class="info-line-header">Year:</p>
+        <p class="info-line-value">{{ year }}</p>
+      </div>
+      <div class="info-line">
+        <p class="info-line-header">Genres:</p>
+        <p class="info-line-value">{{ genres }}</p>
+      </div>
+      <div class="info-line">
+        <p class="info-line-header">Characteristics:</p>
+        <p class="info-line-value">{{ characteristics }}</p>
+      </div>
+      <div class="actions">
+        <button *ngIf="isFilm" mat-raised-button color="primary" (click)="onPlay(streamUrl)">Play</button>
+        <button mat-raised-button>Like</button>
+        <button mat-stroked-button>Dislike</button>
+      </div>
+    </div>
+  </div>
+  <div class="description">
+    <p>{{ description }}</p>
+  </div>
+  <div *ngIf="isSerie" class="episodes">
+    <div class="episodes-header">
+      <mat-form-field appearance="outline">
+        <mat-label>Season</mat-label>
+        <mat-select
+          [value]="selectedSeasonKey"
+          (selectionChange)="onSeasonKeySelect($event)"
+        >
+          <mat-option *ngFor="let key of seasonsKeys" [value]="key">
+            {{ key }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="episodes-info">
+      <div *ngFor="let episode of selectedSeason" class="episode-info">
+        <div>
+          <span>{{ episode.title }}</span>
+        </div>
+        <div>
+          <span>{{ episode.description }}</span>
+        </div>
+        <div class="episode-poster-container">
+          <img class="episode-poster" [src]="episode.posterUrl" />
+          <button class="episode-button" mat-icon-button (click)="onPlay(episode.streamUrl)">
+            <mat-icon>play_circle</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createAction, props } from '@ngrx/store';
-import { AuthRequest, AuthData } from '../../core/models/auth.model';
+import { AuthRequest, AuthData, ChangePasswordRequest } from '../../core/models/auth.model';
 import { Features } from '../../shared/consts/features.consts';
 
 export const AuthActions = {
@@ -9,10 +9,12 @@ export const AuthActions = {
   InternalLoginError: `[${Features.Auth}] Internal Login Error`,
   Login: `[${Features.Auth}] Login`,
   LoggedIn: `[${Features.Auth}] Logged In`,
-  loggedInRedirect: `[${Features.Auth}] Logged In Redirect`,
   LoginError: `[${Features.Auth}] Login Error`,
   Logout: `[${Features.Auth}] Logout`,
   LoggedOut: `[${Features.Auth}] Logged Out`,
+  ChangePassword: `[${Features.Auth}] Change Password`,
+  ChangePasswordSuccess: `[${Features.Auth}] Change Password Success`,
+  ChangePasswordError: `[${Features.Auth}] Change Password Error`,
 };
 
 export const internalLogin = createAction(AuthActions.InternalLogin);
@@ -32,8 +34,6 @@ export const loggedIn = createAction(
   props<{ authData: AuthData }>()
 );
 
-export const loggedInRedirect = createAction(AuthActions.LoggedIn);
-
 export const loginError = createAction(
   AuthActions.LoginError,
   props<{ error: HttpErrorResponse }>()
@@ -42,3 +42,17 @@ export const loginError = createAction(
 export const logout = createAction(AuthActions.Logout);
 
 export const loggedOut = createAction(AuthActions.LoggedOut);
+
+export const changePassword = createAction(
+  AuthActions.ChangePassword,
+  props<{ request: ChangePasswordRequest }>()
+);
+
+export const changePasswordSuccess = createAction(
+  AuthActions.ChangePasswordSuccess
+);
+
+export const changePasswordError = createAction(
+  AuthActions.ChangePasswordError,
+  props<{ error: HttpErrorResponse }>()
+);

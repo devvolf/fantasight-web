@@ -1,0 +1,32 @@
+.container {
+  padding: 20px 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px 0px;
+
+    .header-text {
+      font-size: 24px;
+      margin: 0px;
+    }
+
+    .header-input {
+      width: 400px;
+    }
+  }
+
+  .list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+
+    .list-element {
+      margin-bottom: 24px;
+      margin-right: 24px;
+      width: 300px;
+    }
+  }
+}
