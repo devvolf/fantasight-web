@@ -92,6 +92,6 @@ export class WatchableInfoComponent implements OnInit {
   }
 
   onPlay(streamUrl: string): void {
-    this.dialog.open(VideoPlayerComponent, { data: streamUrl });
+    this.dialog.open(VideoPlayerComponent, { data: streamUrl, panelClass: 'video-player-dialog-container' });
   }
 }

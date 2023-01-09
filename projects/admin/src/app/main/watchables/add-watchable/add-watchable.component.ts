@@ -24,7 +24,7 @@ export class AddWatchableComponent implements OnInit {
   public genres$: Observable<Genre[]>;
   public characteristics$: Observable<Characteristic[]>;
 
-  public type = WatchableType.SERIE;
+  public type = WatchableType.FILM;
 
   constructor(
     private watchablesStore: Store<WatchablesState>,

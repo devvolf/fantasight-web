@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WatchablesService {
-  private url = `${environment.API_URL}/watchables`;
+  private url = `${environment.API_URL}/client/watchables`;
 
   constructor(private httpClient: HttpClient) {}
 

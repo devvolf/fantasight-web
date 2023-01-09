@@ -33,8 +33,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    this.route.navigateByUrl('/auth');
-    return of(false);
     const token = this.auth.getLocalAuth()?.accessToken;
 
     if (!token) {

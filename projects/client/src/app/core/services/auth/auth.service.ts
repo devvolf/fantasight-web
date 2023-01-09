@@ -25,12 +25,12 @@ export class AuthService {
 
   public refreshToken(refreshToken: string): Observable<any> {
     const url = `${this.authUrl}/token`;
-    return this.httpClient.post(url, { token: refreshToken });
+    return this.httpClient.post(url, { refreshToken });
   }
 
   public logout(refreshToken: string): Observable<any> {
     const url = `${this.authUrl}/logout`;
-    return this.httpClient.delete(url, { body: { token: refreshToken } });
+    return this.httpClient.delete(url, { body: { refreshToken } });
   }
 
   public saveLocalAuth(auth: AuthData): void {
